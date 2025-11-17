@@ -173,6 +173,81 @@ def list_issues(status=None):
                     print(f"  #{issue['id']:3d} [{issue['assignee']:15s}] {issue['title']}")
 
 
+def render_markdown():
+    """Render board as markdown"""
+    board = load_json(BOARD_FILE)
+    config = load_json(CONFIG_FILE)
+
+    # Load all issues
+    issues = {}
+    for col in ["backlog", "todo", "in_progress", "review", "done"]:
+        for issue_id in board[col]:
+            issue = get_issue(issue_id)
+            if issue:
+                issues[issue_id] = issue
+
+    total = len(issues)
+    done_count = len(board["done"])
+    progress = round((done_count / total * 100)) if total > 0 else 0
+
+    # Generate markdown
+    md = f"""# 🎯 Scrum Board - {config['project']}
+
+**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+## 📊 Summary
+
+- **Total Issues:** {total}
+- **Completed:** {done_count} ({progress}%)
+- **In Progress:** {len(board['in_progress'])}
+- **In Review:** {len(board['review'])}
+- **Backlog:** {len(board['backlog'])}
+
+---
+
+## 📋 Board
+
+"""
+
+    columns = [
+        ("backlog", "📝 Backlog"),
+        ("todo", "📌 Todo"),
+        ("in_progress", "🔄 In Progress"),
+        ("review", "👀 Review"),
+        ("done", "✅ Done")
+    ]
+
+    for col_key, col_title in columns:
+        md += f"\n### {col_title} ({len(board[col_key])})\n\n"
+
+        if board[col_key]:
+            for issue_id in board[col_key]:
+                issue = issues.get(issue_id)
+                if issue:
+                    labels = ", ".join(f"`{label}`" for label in issue['labels'])
+                    md += f"- **#{issue['id']}** - {issue['title']}\n"
+                    md += f"  - 👤 {issue['assignee']}\n"
+                    md += f"  - 🏷️ {labels}\n"
+                    if issue.get('branch'):
+                        md += f"  - 🌿 `{issue['branch']}`\n"
+                    md += "\n"
+        else:
+            md += "*No issues*\n\n"
+
+    md += "\n---\n\n"
+    md += "*View interactive dashboard: `.scrum/dashboard.html`*\n"
+
+    print(md)
+
+    # Also save to file
+    report_file = SCRUM_DIR / "reports" / f"board-{datetime.now().strftime('%Y%m%d-%H%M%S')}.md"
+    report_file.parent.mkdir(exist_ok=True)
+    with open(report_file, 'w') as f:
+        f.write(md)
+
+    print(f"\n📄 Report saved to: {report_file}", file=__import__('sys').stderr)
+
+
 if __name__ == "__main__":
     import sys
 
@@ -182,7 +257,8 @@ if __name__ == "__main__":
         print("  create <title> <assignee> <labels> - Create issue")
         print("  status <issue_id> <new_status>     - Update status")
         print("  show <issue_id>                    - Show issue details")
-        print("  board                              - Render board")
+        print("  board                              - Render ASCII board")
+        print("  markdown                           - Render markdown report")
         print("  list [status]                      - List issues")
         sys.exit(1)
 
@@ -207,6 +283,9 @@ if __name__ == "__main__":
 
     elif command == "board":
         render_board()
+
+    elif command == "markdown" or command == "md":
+        render_markdown()
 
     elif command == "list":
         status = sys.argv[2] if len(sys.argv) > 2 else None
