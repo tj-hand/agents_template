@@ -10,16 +10,29 @@ python3 .scrum/scrum_cli.py board
 ```
 ASCII board in your terminal - fast and simple.
 
-### Option 2: HTML Dashboard (Best Visual)
+### Option 2: Static HTML on GitHub ⭐ (Best for Remote)
 ```bash
-cd .scrum
+python3 .scrum/generate_static.py
+# Commit and push the updated dashboard-static.html
+```
+Then view directly on GitHub (no cloning needed!):
+- **GitHub HTML preview:** Click on `dashboard-static.html` in GitHub
+- **Raw view:** https://github.com/tj-hand/agents_template/blob/main/.scrum/dashboard-static.html
+
+**Perfect for viewing from anywhere without cloning the repo!**
+
+### Option 3: Local HTML Dashboard (Best Visual, Requires Clone)
+```bash
+# First clone the repo
+git clone https://github.com/tj-hand/agents_template.git
+cd agents_template/.scrum
 python3 -m http.server 8000
 ```
 Then open: http://localhost:8000/dashboard.html
 
 Interactive, beautiful, auto-refreshing dashboard!
 
-### Option 3: Markdown Report
+### Option 4: Markdown Report
 ```bash
 python3 .scrum/scrum_cli.py markdown
 ```
@@ -27,10 +40,11 @@ Generates markdown report + saves to `.scrum/reports/`
 
 ### Quick Script (All-in-one)
 ```bash
-.scrum/view_board.sh          # Terminal view (default)
-.scrum/view_board.sh html     # Start web server for HTML dashboard
-.scrum/view_board.sh markdown # Generate markdown report
-.scrum/view_board.sh list     # List all issues
+.scrum/view_board.sh             # Terminal view (default)
+.scrum/view_board.sh static      # Generate static HTML for GitHub ⭐
+.scrum/view_board.sh html        # Start local web server
+.scrum/view_board.sh markdown    # Generate markdown report
+.scrum/view_board.sh list        # List all issues
 ```
 
 ---

@@ -11,6 +11,14 @@ case "${1:-terminal}" in
         python3 -m http.server 8000
         ;;
 
+    static|github)
+        echo "📸 Generating static HTML snapshot for GitHub..."
+        python3 "$SCRIPT_DIR/generate_static.py"
+        echo ""
+        echo "✅ Static dashboard generated!"
+        echo "   Commit and push to view on GitHub"
+        ;;
+
     markdown|md)
         echo "📝 Generating markdown report..."
         python3 "$SCRIPT_DIR/scrum_cli.py" markdown
@@ -30,14 +38,16 @@ case "${1:-terminal}" in
         echo "Usage: $0 [format]"
         echo ""
         echo "Formats:"
-        echo "  html       - Open interactive HTML dashboard in browser"
-        echo "  markdown   - Generate markdown report"
         echo "  terminal   - ASCII board in terminal (default)"
+        echo "  static     - Generate static HTML for GitHub viewing"
+        echo "  html       - Start local server for interactive dashboard"
+        echo "  markdown   - Generate markdown report"
         echo "  list       - List all issues"
         echo ""
         echo "Examples:"
         echo "  $0              # Show terminal board"
-        echo "  $0 html         # Open HTML dashboard"
+        echo "  $0 static       # Generate GitHub-viewable HTML"
+        echo "  $0 html         # Start local web server"
         echo "  $0 markdown     # Generate markdown report"
         ;;
 esac
