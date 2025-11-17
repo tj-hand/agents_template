@@ -1,0 +1,43 @@
+{
+  "project": "agents_template",
+  "next_issue_id": 5,
+  "agents": [
+    "PM-Agent",
+    "Git-Agent",
+    "Database-Agent",
+    "FastAPI-Agent",
+    "Vue-Agent",
+    "UXUI-Agent",
+    "QA-Agent",
+    "DevOps-Agent"
+  ],
+  "labels": {
+    "type": [
+      "feature",
+      "bug",
+      "tech-debt",
+      "task",
+      "test"
+    ],
+    "status": [
+      "blocked",
+      "research-spike",
+      "changes-requested"
+    ],
+    "agent": [
+      "@database",
+      "@fastapi",
+      "@vue",
+      "@uxui",
+      "@qa",
+      "@devops"
+    ]
+  },
+  "board_columns": [
+    "backlog",
+    "todo",
+    "in_progress",
+    "review",
+    "done"
+  ]
+}

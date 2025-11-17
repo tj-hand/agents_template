@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "title": "Create users table for authentication",
+  "body": "",
+  "status": "done",
+  "assignee": "Database-Agent",
+  "labels": [
+    "feature",
+    "database"
+  ],
+  "created": "2025-11-17T22:22:50.575062",
+  "updated": "2025-11-17T22:24:50.304141",
+  "sprint": null,
+  "acceptance_criteria": [],
+  "branch": null,
+  "pr": null
+}

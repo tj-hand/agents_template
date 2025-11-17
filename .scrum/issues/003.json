@@ -1,0 +1,17 @@
+{
+  "id": 3,
+  "title": "Login form component",
+  "body": "",
+  "status": "backlog",
+  "assignee": "Vue-Agent",
+  "labels": [
+    "feature",
+    "frontend"
+  ],
+  "created": "2025-11-17T22:23:02.037602",
+  "updated": "2025-11-17T22:23:02.037615",
+  "sprint": null,
+  "acceptance_criteria": [],
+  "branch": null,
+  "pr": null
+}

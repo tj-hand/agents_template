@@ -1,0 +1,17 @@
+{
+  "id": 2,
+  "title": "POST /auth/login endpoint",
+  "body": "",
+  "status": "backlog",
+  "assignee": "FastAPI-Agent",
+  "labels": [
+    "feature",
+    "backend"
+  ],
+  "created": "2025-11-17T22:23:01.974839",
+  "updated": "2025-11-17T22:23:01.974853",
+  "sprint": null,
+  "acceptance_criteria": [],
+  "branch": null,
+  "pr": null
+}

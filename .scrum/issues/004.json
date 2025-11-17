@@ -1,0 +1,17 @@
+{
+  "id": 4,
+  "title": "Login E2E tests",
+  "body": "",
+  "status": "backlog",
+  "assignee": "QA-Agent",
+  "labels": [
+    "test",
+    "qa"
+  ],
+  "created": "2025-11-17T22:23:02.115273",
+  "updated": "2025-11-17T22:23:02.115288",
+  "sprint": null,
+  "acceptance_criteria": [],
+  "branch": null,
+  "pr": null
+}
