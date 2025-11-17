@@ -1,34 +1,25 @@
 # 🌐 View Scrum Board Online
 
-GitHub doesn't render HTML files directly, but you can view the dashboard using these methods:
+## ⭐ BEST: Markdown Board (Renders on GitHub!)
 
-## 🚀 Quick View (No Setup)
+**Just click this file on GitHub:**
 
-### HTMLPreview.github.io
-Click this link to view the dashboard instantly:
+**[📊 BOARD.md](BOARD.md)** ← Click to view the board!
 
-**[View Scrum Dashboard](https://htmlpreview.github.io/?https://github.com/tj-hand/agents_template/blob/claude/hello-world-test-01BrhfQBbPT8AGhuXyfQxS2F/.scrum/dashboard-static.html)**
+GitHub renders this beautifully with:
+- ✅ All 5 columns (Backlog, Todo, In Progress, Review, Done)
+- ✅ All issues with assignees and labels
+- ✅ Progress statistics
+- ✅ Works perfectly on mobile/tablet
+- ✅ No setup needed!
 
-This service renders the HTML file in your browser.
-
----
-
-## 📝 Alternative: Markdown View
-
-For a simpler view, check the latest markdown report:
-
-[View Latest Report](.scrum/reports/)
-
-Or generate a new one:
-```bash
-python3 .scrum/scrum_cli.py markdown
-```
+**This is the recommended way to view the board remotely.**
 
 ---
 
-## 💻 Local Viewing (Best Experience)
+## 💻 Local Viewing (Interactive Dashboard)
 
-Clone and view locally for the best experience:
+For the full interactive HTML experience, clone locally:
 
 ```bash
 git clone https://github.com/tj-hand/agents_template.git
@@ -38,6 +29,12 @@ python3 -m http.server 8000
 
 Then open: http://localhost:8000/dashboard.html
 
+Features:
+- Auto-refresh every 30 seconds
+- Click cards for details
+- Beautiful gradient design
+- Real-time updates
+
 ---
 
 ## 📊 Quick Terminal View
@@ -46,3 +43,20 @@ After cloning:
 ```bash
 python3 .scrum/scrum_cli.py board
 ```
+
+Shows ASCII board in terminal - fast and simple.
+
+---
+
+## 🔄 Updating the Board
+
+When issues change, regenerate the markdown:
+
+```bash
+python3 .scrum/scrum_cli.py markdown > .scrum/BOARD.md
+git add .scrum/BOARD.md
+git commit -m "Update Scrum board"
+git push
+```
+
+The updated board will be visible immediately on GitHub!
