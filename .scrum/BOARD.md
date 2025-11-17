@@ -1,0 +1,58 @@
+# 🎯 Scrum Board - agents_template
+
+**Generated:** 2025-11-17 22:37:32
+
+## 📊 Summary
+
+- **Total Issues:** 4
+- **Completed:** 1 (25%)
+- **In Progress:** 0
+- **In Review:** 0
+- **Backlog:** 3
+
+---
+
+## 📋 Board
+
+
+### 📝 Backlog (3)
+
+- **#2** - POST /auth/login endpoint
+  - 👤 FastAPI-Agent
+  - 🏷️ `feature`, `backend`
+
+- **#3** - Login form component
+  - 👤 Vue-Agent
+  - 🏷️ `feature`, `frontend`
+
+- **#4** - Login E2E tests
+  - 👤 QA-Agent
+  - 🏷️ `test`, `qa`
+
+
+### 📌 Todo (0)
+
+*No issues*
+
+
+### 🔄 In Progress (0)
+
+*No issues*
+
+
+### 👀 Review (0)
+
+*No issues*
+
+
+### ✅ Done (1)
+
+- **#1** - Create users table for authentication
+  - 👤 Database-Agent
+  - 🏷️ `feature`, `database`
+
+
+---
+
+*View interactive dashboard: `.scrum/dashboard.html`*
+

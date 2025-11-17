@@ -2,6 +2,8 @@
 
 Multi-agent development system for Claude Code Web with GitHub integration and Scrum methodology.
 
+**📊 [View Current Scrum Board](.scrum/BOARD.md)** | **📖 [Scrum System Docs](.scrum/README.md)**
+
 ---
 
 ## Overview
