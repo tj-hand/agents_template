@@ -1,0 +1,21 @@
+{
+  "id": "TASK-XXX",
+  "title": "Título descritivo e claro da task",
+  "agent": "Database Agent | UX/UI Agent | Vue Agent | FastAPI Agent | QA Agent | DevOps Agent",
+  "status": "TODO | IN_PROGRESS | DONE | BLOCKED",
+  "priority": "P0 (crítico) | P1 (alto) | P2 (médio)",
+  "story_points": 1,
+  "created_at": "2025-11-18T10:00:00Z",
+  "started_at": null,
+  "completed_at": null,
+  "context": "Explicação do porquê essa task existe e qual problema ela resolve",
+  "acceptance_criteria": [
+    "Critério específico e mensurável 1",
+    "Critério específico e mensurável 2",
+    "Critério específico e mensurável 3"
+  ],
+  "dependencies": [
+    "TASK-YYY"
+  ],
+  "notes": "Observações adicionais, links úteis, decisões técnicas"
+}

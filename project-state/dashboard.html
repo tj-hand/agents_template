@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #111827;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .update-info {
+            text-align: right;
+        }
+        
+        .update-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .update-time {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .info-banner {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .info-banner svg {
+            flex-shrink: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            color: #2563eb;
+        }
+        
+        .info-content {
+            flex: 1;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .info-text {
+            color: #1e3a8a;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn {
+            width: 100%;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-bottom: 2rem;
+        }
+        
+        .btn:hover {
+            background: #f9fafb;
+        }
+        
+        .data-input {
+            display: none;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .data-input.active {
+            display: block;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            resize: vertical;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .sprint-banner {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sprint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .sprint-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sprint-dates {
+            color: #bfdbfe;
+            font-size: 0.875rem;
+        }
+        
+        .sprint-goal {
+            font-size: 1.125rem;
+            margin-top: 0.5rem;
+        }
+        
+        .sprint-progress {
+            text-align: right;
+        }
+        
+        .progress-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .progress-label {
+            color: #bfdbfe;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .metric-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .metric-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-value {
+            font-size: 1.875rem;
+            font-weight: bold;
+        }
+        
+        .metric-icon {
+            background: #f3f4f6;
+            padding: 0.75rem;
+            border-radius: 9999px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .kanban-column {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            min-height: 200px;
+        }
+        
+        .column-todo {
+            background: #f3f4f6;
+        }
+        
+        .column-progress {
+            background: #fef3c7;
+        }
+        
+        .column-done {
+            background: #d1fae5;
+        }
+        
+        .column-blocked {
+            background: #fee2e2;
+        }
+        
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .column-title {
+            font-weight: 600;
+        }
+        
+        .column-count {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .task-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 0.75rem;
+            transition: box-shadow 0.2s;
+        }
+        
+        .task-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .task-id {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .task-priority {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .priority-p0 {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .priority-p1 {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .priority-p2 {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+        
+        .task-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .task-points {
+            font-weight: 600;
+        }
+        
+        .task-notes {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .team-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .team-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-stat-label {
+            color: #6b7280;
+        }
+        
+        .team-stat-value {
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            background: #e5e7eb;
+            border-radius: 9999px;
+            height: 0.5rem;
+            margin-top: 0.75rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: #10b981;
+            height: 100%;
+            transition: width 0.3s;
+        }
+        
+        .activity-container {
+            background: white;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .activity-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.2s;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-item:hover {
+            background: #f9fafb;
+        }
+        
+        .activity-content {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .activity-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .activity-text {
+            font-size: 0.875rem;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        
+        .text-blue-600 { color: #2563eb; }
+        .text-green-600 { color: #16a34a; }
+        .text-yellow-600 { color: #ca8a04; }
+        .text-red-600 { color: #dc2626; }
+        .text-purple-600 { color: #9333ea; }
+        .text-gray-600 { color: #4b5563; }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .sprint-title {
+                font-size: 1.25rem;
+            }
+            
+            .progress-number {
+                font-size: 2rem;
+            }
+            
+            .kanban-board,
+            .metrics-grid,
+            .charts-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1>Project Dashboard</h1>
+                    <p class="subtitle" id="project-name">Sprint Management System</p>
+                </div>
+                <div class="update-info">
+                    <div class="update-label">Última atualização</div>
+                    <div class="update-time" id="last-update">18/11/2025</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="info-content">
+                    <p class="info-title">📊 Dashboard Standalone - Pronto para Usar!</p>
+                    <p class="info-text">Esta versão funciona diretamente no navegador com dados de exemplo embutidos.</p>
+                    <p class="info-text"><strong>Para usar seus dados reais:</strong> Clique em "🔧 Atualizar Dados" abaixo e cole o conteúdo dos seus arquivos JSON.</p>
+                </div>
+            </div>
+
+            <!-- Data Input Toggle -->
+            <button class="btn" onclick="toggleDataInput()">
+                <span>🔧 Atualizar Dados (Opcional)</span>
+                <span id="chevron">▼</span>
+            </button>
+
+            <div class="data-input" id="data-input">
+                <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+                    Cole o conteúdo dos seus arquivos JSON abaixo para atualizar o dashboard:
+                </p>
+                
+                <div class="input-group">
+                    <label class="input-label">current-sprint.json (obrigatório)</label>
+                    <textarea id="sprint-json-input" rows="6" placeholder="Cole o conteúdo de current-sprint.json aqui..."></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">task-log.jsonl (opcional)</label>
+                    <textarea id="log-jsonl-input" rows="6" placeholder="Cole o conteúdo de task-log.jsonl aqui..."></textarea>
+                </div>
+                
+                <button class="btn-primary" onclick="loadCustomData()">✅ Atualizar Dashboard</button>
+            </div>
+
+            <!-- Sprint Banner -->
+            <section class="sprint-banner">
+                <div class="sprint-header">
+                    <div>
+                        <h2 class="sprint-title" id="sprint-title">Sprint 12</h2>
+                        <p class="sprint-dates" id="sprint-dates">18/11/2025 a 01/12/2025</p>
+                        <p class="sprint-goal" id="sprint-goal">Implementar autenticação Microsoft Entra no HandBI</p>
+                    </div>
+                    <div class="sprint-progress">
+                        <div class="progress-number" id="sprint-progress">38%</div>
+                        <div class="progress-label">Progresso</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Metrics -->
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div>
+                            <p class="metric-label">Total Tasks</p>
+                            <p class="metric-value" id="metric-total">8</p>
+                        </div>
+                        <div class="metric-icon">📋</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div>
+                            <p class="metric-label">Concluídas</p>
+                            <p class="metric-value" style="color: #16a34a;" id="metric-done">3</p>
+                        </div>
+                        <div class="metric-icon">✅</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div>
+                            <p class="metric-label">Em Progresso</p>
+                            <p class="metric-value" style="color: #ca8a04;" id="metric-progress">2</p>
+                        </div>
+                        <div class="metric-icon">🔄</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div>
+                            <p class="metric-label">Story Points</p>
+                            <p class="metric-value" style="color: #2563eb;">
+                                <span id="metric-points-done">8</span>/<span id="metric-points-total">21</span>
+                            </p>
+                        </div>
+                        <div class="metric-icon">📊</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts -->
+            <section class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">Status das Tasks</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Velocity por Agente</h3>
+                    <canvas id="velocityChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Kanban Board -->
+            <section>
+                <h2 class="section-title">Board de Tasks</h2>
+                <div class="kanban-board">
+                    <div class="kanban-column column-todo">
+                        <div class="column-header">
+                            <h3 class="column-title">📋 A Fazer</h3>
+                            <span class="column-count" id="count-todo">0</span>
+                        </div>
+                        <div id="column-todo"></div>
+                    </div>
+
+                    <div class="kanban-column column-progress">
+                        <div class="column-header">
+                            <h3 class="column-title">🔄 Em Progresso</h3>
+                            <span class="column-count" id="count-progress">0</span>
+                        </div>
+                        <div id="column-progress"></div>
+                    </div>
+
+                    <div class="kanban-column column-done">
+                        <div class="column-header">
+                            <h3 class="column-title">✅ Concluídas</h3>
+                            <span class="column-count" id="count-done">0</span>
+                        </div>
+                        <div id="column-done"></div>
+                    </div>
+
+                    <div class="kanban-column column-blocked">
+                        <div class="column-header">
+                            <h3 class="column-title">🚫 Bloqueadas</h3>
+                            <span class="column-count" id="count-blocked">0</span>
+                        </div>
+                        <div id="column-blocked"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team View -->
+            <section style="margin-top: 2rem;">
+                <h2 class="section-title">Tasks por Agente</h2>
+                <div class="team-grid" id="team-view"></div>
+            </section>
+
+            <!-- Activity Log -->
+            <section style="margin-top: 2rem;">
+                <h2 class="section-title">Atividade Recente</h2>
+                <div class="activity-container" id="activity-log"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Embedded data
+        let sprintData = {"sprint":12,"start_date":"2025-11-18","end_date":"2025-12-01","goal":"Implementar autenticação Microsoft Entra","epic":"EPIC-001","metrics":{"total_points":21,"completed_points":8,"tasks":{"total":8,"todo":3,"in_progress":2,"done":3,"blocked":0}},"tasks":[{"id":"TASK-001","title":"Configurar Azure App Registration","agent":"DevOps Agent","status":"DONE","priority":"P0","story_points":2,"notes":"App registration criado com sucesso"},{"id":"TASK-002","title":"Criar schemas de autenticação no banco","agent":"Database Agent","status":"DONE","priority":"P0","story_points":3,"notes":"Schema criado"},{"id":"TASK-003","title":"Implementar UI de login","agent":"Vue Agent","status":"DONE","priority":"P0","story_points":3,"notes":"Componente finalizado"},{"id":"TASK-004","title":"Implementar OAuth2 flow no backend","agent":"FastAPI Agent","status":"IN_PROGRESS","priority":"P0","story_points":5,"notes":"Middleware implementado"},{"id":"TASK-005","title":"Implementar refresh token mechanism","agent":"FastAPI Agent","status":"IN_PROGRESS","priority":"P0","story_points":3,"notes":"Aguardando TASK-004"},{"id":"TASK-006","title":"Testes E2E de autenticação","agent":"QA Agent","status":"TODO","priority":"P1","story_points":3,"notes":""},{"id":"TASK-007","title":"Deploy em ambiente staging","agent":"DevOps Agent","status":"TODO","priority":"P1","story_points":2,"notes":""},{"id":"TASK-008","title":"Documentação técnica","agent":"FastAPI Agent","status":"TODO","priority":"P2","story_points":2,"notes":""}]};
+
+        let logData = [{"timestamp":"2025-11-18T10:00:00Z","action":"sprint_started","sprint":12},{"timestamp":"2025-11-18T10:00:00Z","action":"task_created","task_id":"TASK-001","title":"Configurar Azure App Registration"},{"timestamp":"2025-11-18T10:00:00Z","action":"task_created","task_id":"TASK-002","title":"Criar schemas de autenticação"},{"timestamp":"2025-11-18T10:00:00Z","action":"task_created","task_id":"TASK-003","title":"Implementar UI de login"},{"timestamp":"2025-11-18T14:30:00Z","action":"task_completed","task_id":"TASK-001","notes":"Configuração concluída"},{"timestamp":"2025-11-19T11:00:00Z","action":"task_completed","task_id":"TASK-002","notes":"Schema criado"},{"timestamp":"2025-11-19T16:00:00Z","action":"task_completed","task_id":"TASK-003","notes":"UI finalizada"},{"timestamp":"2025-11-20T09:00:00Z","action":"task_started","task_id":"TASK-004"}];
+
+        let statusChart = null;
+        let velocityChart = null;
+
+        function toggleDataInput() {
+            const input = document.getElementById('data-input');
+            const chevron = document.getElementById('chevron');
+            input.classList.toggle('active');
+            chevron.textContent = input.classList.contains('active') ? '▲' : '▼';
+        }
+
+        function loadCustomData() {
+            try {
+                const sprintInput = document.getElementById('sprint-json-input').value.trim();
+                const logInput = document.getElementById('log-jsonl-input').value.trim();
+
+                if (sprintInput) sprintData = JSON.parse(sprintInput);
+                if (logInput) logData = logInput.split('\n').map(line => JSON.parse(line));
+
+                renderDashboard();
+                alert('✅ Dashboard atualizado!');
+                toggleDataInput();
+            } catch (error) {
+                alert('❌ Erro: ' + error.message);
+            }
+        }
+
+        function renderDashboard() {
+            document.getElementById('sprint-title').textContent = `Sprint ${sprintData.sprint}`;
+            document.getElementById('sprint-dates').textContent = `${formatDate(sprintData.start_date)} a ${formatDate(sprintData.end_date)}`;
+            document.getElementById('sprint-goal').textContent = sprintData.goal;
+            
+            const progress = Math.round((sprintData.metrics.completed_points / sprintData.metrics.total_points) * 100);
+            document.getElementById('sprint-progress').textContent = `${progress}%`;
+
+            document.getElementById('metric-total').textContent = sprintData.metrics.tasks.total;
+            document.getElementById('metric-done').textContent = sprintData.metrics.tasks.done;
+            document.getElementById('metric-progress').textContent = sprintData.metrics.tasks.in_progress;
+            document.getElementById('metric-points-done').textContent = sprintData.metrics.completed_points;
+            document.getElementById('metric-points-total').textContent = sprintData.metrics.total_points;
+
+            renderKanban();
+            renderCharts();
+            renderTeamView();
+            renderActivityLog();
+        }
+
+        function renderKanban() {
+            const columns = {
+                'TODO': 'column-todo',
+                'IN_PROGRESS': 'column-progress',
+                'DONE': 'column-done',
+                'BLOCKED': 'column-blocked'
+            };
+
+            Object.values(columns).forEach(col => {
+                document.getElementById(col).innerHTML = '';
+            });
+
+            const tasksByStatus = {};
+            sprintData.tasks.forEach(task => {
+                if (!tasksByStatus[task.status]) tasksByStatus[task.status] = [];
+                tasksByStatus[task.status].push(task);
+            });
+
+            Object.entries(tasksByStatus).forEach(([status, tasks]) => {
+                const columnId = columns[status];
+                if (columnId) {
+                    document.getElementById('count-' + columnId.split('-')[1]).textContent = tasks.length;
+                    tasks.forEach(task => {
+                        document.getElementById(columnId).appendChild(createTaskCard(task));
+                    });
+                }
+            });
+        }
+
+        function createTaskCard(task) {
+            const div = document.createElement('div');
+            div.className = 'task-card';
+            
+            const priorityClass = {
+                'P0': 'priority-p0',
+                'P1': 'priority-p1',
+                'P2': 'priority-p2'
+            }[task.priority];
+
+            div.innerHTML = `
+                <div class="task-header">
+                    <span class="task-id">${task.id}</span>
+                    <span class="task-priority ${priorityClass}">${task.priority}</span>
+                </div>
+                <div class="task-title">${task.title}</div>
+                <div class="task-footer">
+                    <span>${task.agent.replace(' Agent', '')}</span>
+                    <span class="task-points">${task.story_points} SP</span>
+                </div>
+                ${task.notes ? `<div class="task-notes">${task.notes}</div>` : ''}
+            `;
+            
+            return div;
+        }
+
+        function renderCharts() {
+            if (typeof Chart === 'undefined') return;
+
+            // Status Chart
+            const statusCtx = document.getElementById('statusChart').getContext('2d');
+            if (statusChart) statusChart.destroy();
+            
+            statusChart = new Chart(statusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['A Fazer', 'Em Progresso', 'Concluídas', 'Bloqueadas'],
+                    datasets: [{
+                        data: [
+                            sprintData.metrics.tasks.todo,
+                            sprintData.metrics.tasks.in_progress,
+                            sprintData.metrics.tasks.done,
+                            sprintData.metrics.tasks.blocked
+                        ],
+                        backgroundColor: ['#9CA3AF', '#FCD34D', '#34D399', '#EF4444']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Velocity Chart
+            const agentVelocity = {};
+            sprintData.tasks.forEach(task => {
+                if (!agentVelocity[task.agent]) agentVelocity[task.agent] = { done: 0, total: 0 };
+                agentVelocity[task.agent].total += task.story_points;
+                if (task.status === 'DONE') agentVelocity[task.agent].done += task.story_points;
+            });
+
+            const agents = Object.keys(agentVelocity);
+            const velocityCtx = document.getElementById('velocityChart').getContext('2d');
+            if (velocityChart) velocityChart.destroy();
+            
+            velocityChart = new Chart(velocityCtx, {
+                type: 'bar',
+                data: {
+                    labels: agents.map(a => a.replace(' Agent', '')),
+                    datasets: [
+                        {
+                            label: 'Concluídos',
+                            data: agents.map(a => agentVelocity[a].done),
+                            backgroundColor: '#34D399'
+                        },
+                        {
+                            label: 'Pendentes',
+                            data: agents.map(a => agentVelocity[a].total - agentVelocity[a].done),
+                            backgroundColor: '#FCD34D'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: { x: { stacked: true }, y: { stacked: true } },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        function renderTeamView() {
+            const teamView = document.getElementById('team-view');
+            teamView.innerHTML = '';
+
+            const agents = [...new Set(sprintData.tasks.map(t => t.agent))];
+
+            agents.forEach(agent => {
+                const tasks = sprintData.tasks.filter(t => t.agent === agent);
+                const done = tasks.filter(t => t.status === 'DONE').length;
+                const total = tasks.length;
+                const points = tasks.reduce((sum, t) => sum + (t.status === 'DONE' ? t.story_points : 0), 0);
+                const pct = Math.round((done / total) * 100);
+
+                const div = document.createElement('div');
+                div.className = 'team-card';
+                div.innerHTML = `
+                    <div class="team-name">${agent}</div>
+                    <div class="team-stat">
+                        <span class="team-stat-label">Tasks</span>
+                        <span class="team-stat-value">${done}/${total}</span>
+                    </div>
+                    <div class="team-stat">
+                        <span class="team-stat-label">Velocity</span>
+                        <span class="team-stat-value" style="color: #2563eb;">${points} SP</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${pct}%"></div>
+                    </div>
+                `;
+                teamView.appendChild(div);
+            });
+        }
+
+        function renderActivityLog() {
+            const log = document.getElementById('activity-log');
+            log.innerHTML = '';
+
+            const icons = {
+                'task_created': '➕',
+                'task_started': '▶️',
+                'task_completed': '✅',
+                'sprint_started': '🚀'
+            };
+
+            const colors = {
+                'task_created': 'text-blue-600',
+                'task_started': 'text-yellow-600',
+                'task_completed': 'text-green-600',
+                'sprint_started': 'text-purple-600'
+            };
+
+            logData.slice(-15).reverse().forEach(event => {
+                const div = document.createElement('div');
+                div.className = 'activity-item';
+                
+                let desc = '';
+                if (event.action === 'task_created') desc = `Task criada: <strong>${event.task_id}</strong>${event.title ? ' - ' + event.title : ''}`;
+                else if (event.action === 'task_started') desc = `Task iniciada: <strong>${event.task_id}</strong>`;
+                else if (event.action === 'task_completed') desc = `Task concluída: <strong>${event.task_id}</strong>`;
+                else if (event.action === 'sprint_started') desc = `Sprint ${event.sprint} iniciado`;
+                
+                if (event.notes) desc += ` <span style="color: #6b7280;">- ${event.notes}</span>`;
+
+                div.innerHTML = `
+                    <div class="activity-content">
+                        <span class="activity-icon">${icons[event.action] || '•'}</span>
+                        <div>
+                            <div class="activity-text ${colors[event.action] || 'text-gray-600'}">${desc}</div>
+                            <div class="activity-time">${new Date(event.timestamp).toLocaleString('pt-BR')}</div>
+                        </div>
+                    </div>
+                `;
+                log.appendChild(div);
+            });
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('pt-BR');
+        }
+
+        // Initial render
+        renderDashboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "sprint": 0,
+  "start_date": "YYYY-MM-DD",
+  "end_date": "YYYY-MM-DD",
+  "goal": "Objetivo claro e mensurável do sprint",
+  "epic": "EPIC-XXX",
+  "metrics": {
+    "total_points": 0,
+    "completed_points": 0,
+    "tasks": {
+      "total": 0,
+      "todo": 0,
+      "in_progress": 0,
+      "done": 0,
+      "blocked": 0
+    }
+  },
+  "tasks": []
+}
