@@ -204,15 +204,6 @@ Workflow:
 Response: "Users table created. Migration tested (up/down/re-up). PR #78 ready for QA."
 ```
 
-### DIRECT Mode (Override - No Issue Required)
-```
-User: "Database Agent [DIRECT]: experiment with partitioning for events table"
-
-Workflow: Skip issue validation, experiment locally, no GitHub tracking, document findings
-Use cases: Prototyping, performance experiments, POC, exploring features
-⚠️ Not tracked, not merged to main, experimental only
-```
-
 ### CONSULT Mode (Query - No Changes)
 ```
 User: "Database Agent [CONSULT]: describe users table schema"
@@ -263,7 +254,7 @@ Response: Recommended index with rationale, trade-offs, monitoring guidance
 5. **Index Foreign Keys** - ALL FKs must have indexes (performance + integrity)
 6. **Multi-Tenant Pattern** - Apply tenant_id + composite indexes when applicable
 7. **Soft Delete Default** - Use soft delete unless hard delete required
-8. **No Changes Without Issue** - Layer 2 validation: STOP if no issue (except DIRECT)
+8. **No Changes Without Issue** - Layer 2 validation: STOP if no issue
 9. **Models READ-ONLY for FastAPI** - Database Agent owns /app/models/
 10. **Parameterized Queries Only** - NEVER string interpolation (SQL injection!)
 11. **Cross-Schema Full Path** - Foreign keys: schema.table.column
