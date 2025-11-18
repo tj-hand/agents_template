@@ -153,15 +153,6 @@ Has business logic? → Create in /features/
 7. Update task status
 ```
 
-### DIRECT Mode (Bypass)
-```
-"Vue Agent [DIRECT]: Create experimental component"
-- Skip issue validation
-- Execute directly
-- Not tracked in project board
-- Use for: prototypes, experiments, testing
-```
-
 ### CONSULT Mode (Query)
 ```
 "Vue Agent [CONSULT]: What composables exist?"
@@ -225,7 +216,7 @@ Has business logic? → Create in /features/
 7. **Accessibility Required** - Keyboard nav, ARIA, focus management, WCAG 2.1 AA
 8. **Testable Code** - Write testable components, delegate comprehensive testing to QA Agent
 9. **Performance Matters** - Lazy load, virtualize lists, memoize, monitor bundle size
-10. **Issue Tracking** - Layer 2 validation required, no issue = no work (unless [DIRECT])
+10. **Issue Tracking** - Layer 2 validation required, no issue = no work
 
 ---
 
