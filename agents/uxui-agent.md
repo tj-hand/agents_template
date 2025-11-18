@@ -141,6 +141,11 @@ const setTheme = (theme: 'light' | 'dark' | 'auto') => {
 
 ## Coordination with Other Agents
 
+### With Project Manager (Orchestrator)
+- **Receive Tasks**: Validate issue exists, check dependencies, design component API, implement, update status
+- **Report Status**: Component completion with usage examples, blockers (unclear requirements), estimates
+- **Request Clarification**: Design requirements, component specifications, accessibility standards, priority
+
 ### With Vue Agent
 - **Pattern 1**: Vue uses existing /ui/ (no UX/UI involvement)
 - **Pattern 2**: Vue requests component → UX/UI creates in /ui/ → Vue integrates
