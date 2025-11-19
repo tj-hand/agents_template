@@ -1,0 +1,57 @@
+{
+  "project_name": "DOT Marketing - HandBI",
+  "description": "Business Intelligence application processing payroll and HR data",
+  "start_date": "2024-01-01",
+  "tech_stack": {
+    "frontend": "Vue 3 + TypeScript + Tailwind CSS",
+    "backend": "FastAPI + Python",
+    "database": "PostgreSQL",
+    "infrastructure": "Azure Container Apps",
+    "auth": "Microsoft Entra"
+  },
+  "team": [
+    "Database Agent",
+    "UX/UI Agent", 
+    "Vue Agent",
+    "FastAPI Agent",
+    "QA Agent",
+    "DevOps Agent"
+  ],
+  "roadmap": [
+    {
+      "epic_id": "EPIC-001",
+      "title": "Autenticação Microsoft Entra",
+      "status": "IN_PROGRESS",
+      "priority": "P0",
+      "start_date": "2025-11-01",
+      "target_date": "2025-12-15",
+      "description": "Implementar autenticação empresarial com Microsoft Entra",
+      "sprints": [12, 13]
+    },
+    {
+      "epic_id": "EPIC-002", 
+      "title": "Dashboard Analytics",
+      "status": "PLANNED",
+      "priority": "P1",
+      "start_date": "2026-01-01",
+      "target_date": "2026-02-15",
+      "description": "Visualizações avançadas de dados de RH",
+      "sprints": [14, 15, 16]
+    }
+  ],
+  "okrs": {
+    "Q4_2025": {
+      "objective": "Lançar HandBI com autenticação empresarial",
+      "key_results": [
+        "100% dos clientes usando Microsoft Entra",
+        "Tempo de login < 2 segundos",
+        "Zero incidentes de segurança"
+      ]
+    }
+  },
+  "metadata": {
+    "last_updated": "2025-11-18T10:00:00Z",
+    "current_sprint": 12,
+    "total_sprints_completed": 11
+  }
+}

@@ -1,0 +1,11 @@
+# Webhook Configuration (KEEP SECRET!)
+# This file is gitignored for security
+
+# Your webhook URL
+WEBHOOK_URL="https://scrum.dotmkt.com.br/webhook.php"
+
+# Your webhook secret (generate with: openssl rand -hex 32)
+WEBHOOK_SECRET="change-this-to-your-secret-key"
+
+# Project name (optional, for multi-project setups)
+PROJECT_NAME="agents-template"

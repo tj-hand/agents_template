@@ -1,0 +1,11 @@
+{
+  "projects": [
+    {
+      "id": "agents-template",
+      "name": "Agents Template",
+      "description": "Multi-agent development template project",
+      "color": "#3b82f6"
+    }
+  ],
+  "default": "agents-template"
+}
