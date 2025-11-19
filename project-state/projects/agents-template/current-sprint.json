@@ -5,13 +5,13 @@
   "goal": "Implementar autenticação Microsoft Entra no HandBI",
   "epic": "EPIC-001",
   "metrics": {
-    "total_points": 22,
-    "completed_points": 8,
+    "total_points": 23,
+    "completed_points": 9,
     "tasks": {
-      "total": 9,
+      "total": 10,
       "todo": 4,
       "in_progress": 2,
-      "done": 3,
+      "done": 4,
       "blocked": 0
     }
   },
@@ -181,12 +181,12 @@
       "id": "TASK-009",
       "title": "🎉 TESTE: Sistema de auto-deploy funcionando!",
       "agent": "DevOps Agent",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "story_points": 1,
       "created_at": "2025-11-19T13:50:00Z",
-      "started_at": null,
-      "completed_at": null,
+      "started_at": "2025-11-19T22:15:00Z",
+      "completed_at": "2025-11-19T22:20:00Z",
       "context": "Task de teste para validar que o auto-deploy está funcionando corretamente",
       "acceptance_criteria": [
         "Esta task aparece no dashboard em scrum.dotmkt.com.br",
@@ -194,7 +194,27 @@
         "Sistema de auto-pull está operacional"
       ],
       "dependencies": [],
-      "notes": "Se você está vendo esta task no dashboard, o sistema de auto-deploy está funcionando perfeitamente! 🚀"
+      "notes": "✅ Auto-deploy está funcionando perfeitamente! 🚀"
+    },
+    {
+      "id": "TASK-010",
+      "title": "🔥 WEBHOOK FUNCIONANDO! Atualização instantânea testada",
+      "agent": "DevOps Agent",
+      "status": "TODO",
+      "priority": "P0",
+      "story_points": 1,
+      "created_at": "2025-11-19T22:20:00Z",
+      "started_at": null,
+      "completed_at": null,
+      "context": "Task de teste para validar o webhook de atualização instantânea",
+      "acceptance_criteria": [
+        "Webhook responde com sucesso (HTTP 200)",
+        "Dashboard atualiza INSTANTANEAMENTE após webhook trigger",
+        "TASK-009 aparece como DONE",
+        "TASK-010 aparece como TODO"
+      ],
+      "dependencies": [],
+      "notes": "Se você está vendo esta task, o webhook está funcionando! Próximo passo: trigger o webhook após cada git push."
     }
   ]
 }
