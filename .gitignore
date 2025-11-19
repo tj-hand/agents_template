@@ -15,6 +15,9 @@ temp-key*
 .env.local
 .env.*.local
 
+# Webhook configuration (contains secrets!)
+.webhook-config
+
 # Temporary files
 tmp/
 temp/
