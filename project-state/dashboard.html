@@ -38,7 +38,41 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        
+
+        .project-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-selector label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .project-selector select {
+            padding: 0.5rem 2rem 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background-color: white;
+            font-size: 0.875rem;
+            color: #111827;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .project-selector select:hover {
+            border-color: #9ca3af;
+        }
+
+        .project-selector select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
         h1 {
             font-size: 1.875rem;
             font-weight: bold;
@@ -528,7 +562,12 @@
             <div class="header-content">
                 <div>
                     <h1>Project Dashboard</h1>
-                    <p class="subtitle" id="project-name">Sprint Management System</p>
+                    <div class="project-selector">
+                        <label for="project-select">📁 Projeto:</label>
+                        <select id="project-select" onchange="switchProject()">
+                            <option value="">Carregando projetos...</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="update-info">
                     <button class="btn" onclick="refreshData()" style="margin-right: 1rem; padding: 0.5rem 1rem; cursor: pointer;">
@@ -685,12 +724,59 @@
     </div>
 
     <script>
-        // Embedded data
+        // Multi-project data
         let sprintData = null;
         let logData = [];
+        let availableProjects = [];
+        let currentProject = null;
 
-        // Auto-load data on page load
+        // Load available projects
+        async function loadProjects() {
+            try {
+                const timestamp = new Date().getTime();
+                const response = await fetch(`./projects.json?t=${timestamp}`);
+                if (!response.ok) throw new Error('Could not load projects list');
+
+                const data = await response.json();
+                availableProjects = data.projects;
+
+                // Populate dropdown
+                const select = document.getElementById('project-select');
+                select.innerHTML = '';
+
+                availableProjects.forEach(project => {
+                    const option = document.createElement('option');
+                    option.value = project.id;
+                    option.textContent = project.name;
+                    select.appendChild(option);
+                });
+
+                // Load last selected project or default
+                const savedProject = localStorage.getItem('selectedProject') || data.default;
+                select.value = savedProject;
+                currentProject = savedProject;
+
+                // Load project data
+                await loadData();
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                document.getElementById('error-banner').style.display = 'block';
+                document.getElementById('error-message').textContent = `Erro ao carregar lista de projetos: ${error.message}`;
+            }
+        }
+
+        // Switch project handler
+        async function switchProject() {
+            const select = document.getElementById('project-select');
+            currentProject = select.value;
+            localStorage.setItem('selectedProject', currentProject);
+            await loadData();
+        }
+
+        // Load data for current project
         async function loadData() {
+            if (!currentProject) return;
+
             const loadingIndicator = document.getElementById('loading-indicator');
             const errorBanner = document.getElementById('error-banner');
             const errorMessage = document.getElementById('error-message');
@@ -702,14 +788,14 @@
                 // Add cache-busting timestamp
                 const timestamp = new Date().getTime();
 
-                // Fetch current-sprint.json
-                const sprintResponse = await fetch(`./current-sprint.json?t=${timestamp}`);
+                // Fetch current-sprint.json for selected project
+                const sprintResponse = await fetch(`./projects/${currentProject}/current-sprint.json?t=${timestamp}`);
                 if (!sprintResponse.ok) throw new Error(`HTTP ${sprintResponse.status}: ${sprintResponse.statusText}`);
                 sprintData = await sprintResponse.json();
 
                 // Fetch task-log.jsonl (optional)
                 try {
-                    const logResponse = await fetch(`./task-log.jsonl?t=${timestamp}`);
+                    const logResponse = await fetch(`./projects/${currentProject}/task-log.jsonl?t=${timestamp}`);
                     if (logResponse.ok) {
                         const logText = await logResponse.text();
                         logData = logText.trim().split('\n')
@@ -730,7 +816,7 @@
                 console.error('Error loading data:', error);
                 loadingIndicator.style.display = 'none';
                 errorBanner.style.display = 'block';
-                errorMessage.textContent = `Erro: ${error.message}. Verifique se os arquivos JSON existem e estão acessíveis.`;
+                errorMessage.textContent = `Erro: ${error.message}. Verifique se o projeto "${currentProject}" possui os arquivos necessários.`;
             }
         }
 
@@ -965,8 +1051,8 @@
             return new Date(dateStr).toLocaleDateString('pt-BR');
         }
 
-        // Initial load - fetch data from server
-        loadData();
+        // Initial load - fetch projects and data from server
+        loadProjects();
     </script>
 </body>
 </html>
