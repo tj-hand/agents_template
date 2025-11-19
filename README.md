@@ -42,7 +42,8 @@ Perfect for:
 - **Single Subdomain** - All projects at one URL
 
 ### 🚀 Automated Deployment
-- **Git-Based** - Push changes, server auto-pulls
+- **Git-Based** - Push changes, server auto-pulls (5 min)
+- **Instant Updates** - Webhook for immediate deployment
 - **SSL/HTTPS** - Auto-configured Let's Encrypt
 - **Nginx** - Production-ready web server
 - **Multi-Server** - Deploy to unlimited servers

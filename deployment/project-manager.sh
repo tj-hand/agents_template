@@ -41,8 +41,8 @@ case $OPTION in
         read -p "Git repository URL: " REPO_URL
         read -p "Git branch [main]: " GIT_BRANCH
         GIT_BRANCH=${GIT_BRANCH:-main}
-        read -p "Auto-pull interval in minutes [1]: " PULL_INTERVAL
-        PULL_INTERVAL=${PULL_INTERVAL:-1}
+        read -p "Auto-pull interval in minutes [5]: " PULL_INTERVAL
+        PULL_INTERVAL=${PULL_INTERVAL:-5}
         read -p "Setup SSL/HTTPS? (y/n) [y]: " SETUP_SSL
         SETUP_SSL=${SETUP_SSL:-y}
 

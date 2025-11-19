@@ -31,8 +31,8 @@ GIT_BRANCH=${GIT_BRANCH:-main}
 read -p "Do you want to set up SSL/HTTPS with Let's Encrypt? (y/n) [y]: " SETUP_SSL
 SETUP_SSL=${SETUP_SSL:-y}
 
-read -p "Auto-pull interval in minutes [1]: " PULL_INTERVAL
-PULL_INTERVAL=${PULL_INTERVAL:-1}
+read -p "Auto-pull interval in minutes [5]: " PULL_INTERVAL
+PULL_INTERVAL=${PULL_INTERVAL:-5}
 
 echo ""
 echo -e "${GREEN}Summary:${NC}"

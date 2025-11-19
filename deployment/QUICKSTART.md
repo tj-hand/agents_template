@@ -34,10 +34,12 @@ Enter installation path [/var/www/project-state]: <press enter>
 Enter git repository URL: https://github.com/tj-hand/agents_template.git
 Enter git branch [main]: <press enter>
 Do you want to set up SSL/HTTPS with Let's Encrypt? (y/n) [y]: y
-Auto-pull interval in minutes [1]: 1
+Auto-pull interval in minutes [5]: 5
 ```
 
-**Done!** Your dashboard is live and will auto-update every minute! 🎉
+**Done!** Your dashboard is live and will auto-update every 5 minutes! 🎉
+
+**Want instant updates?** Set up the webhook - see [WEBHOOK-GUIDE.md](./WEBHOOK-GUIDE.md)
 
 ## What Happens Next?
 
