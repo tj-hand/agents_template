@@ -531,8 +531,13 @@
                     <p class="subtitle" id="project-name">Sprint Management System</p>
                 </div>
                 <div class="update-info">
-                    <div class="update-label">Última atualização</div>
-                    <div class="update-time" id="last-update">18/11/2025</div>
+                    <button class="btn" onclick="refreshData()" style="margin-right: 1rem; padding: 0.5rem 1rem; cursor: pointer;">
+                        🔄 Atualizar
+                    </button>
+                    <div style="display: inline-block;">
+                        <div class="update-label">Última atualização</div>
+                        <div class="update-time" id="last-update">Carregando...</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -540,40 +545,19 @@
 
     <div class="container">
         <main>
-            <!-- Info Banner -->
-            <div class="info-banner">
-                <svg fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                </svg>
+            <!-- Loading indicator -->
+            <div id="loading-indicator" class="info-banner" style="display: none;">
                 <div class="info-content">
-                    <p class="info-title">📊 Dashboard Standalone - Pronto para Usar!</p>
-                    <p class="info-text">Esta versão funciona diretamente no navegador com dados de exemplo embutidos.</p>
-                    <p class="info-text"><strong>Para usar seus dados reais:</strong> Clique em "🔧 Atualizar Dados" abaixo e cole o conteúdo dos seus arquivos JSON.</p>
+                    <p class="info-title">⏳ Carregando dados...</p>
                 </div>
             </div>
 
-            <!-- Data Input Toggle -->
-            <button class="btn" onclick="toggleDataInput()">
-                <span>🔧 Atualizar Dados (Opcional)</span>
-                <span id="chevron">▼</span>
-            </button>
-
-            <div class="data-input" id="data-input">
-                <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
-                    Cole o conteúdo dos seus arquivos JSON abaixo para atualizar o dashboard:
-                </p>
-                
-                <div class="input-group">
-                    <label class="input-label">current-sprint.json (obrigatório)</label>
-                    <textarea id="sprint-json-input" rows="6" placeholder="Cole o conteúdo de current-sprint.json aqui..."></textarea>
+            <!-- Error banner -->
+            <div id="error-banner" class="info-banner" style="display: none; background: #fef2f2; border-color: #fecaca;">
+                <div class="info-content">
+                    <p class="info-title" style="color: #991b1b;">❌ Erro ao carregar dados</p>
+                    <p class="info-text" id="error-message" style="color: #7f1d1d;"></p>
                 </div>
-                
-                <div class="input-group">
-                    <label class="input-label">task-log.jsonl (opcional)</label>
-                    <textarea id="log-jsonl-input" rows="6" placeholder="Cole o conteúdo de task-log.jsonl aqui..."></textarea>
-                </div>
-                
-                <button class="btn-primary" onclick="loadCustomData()">✅ Atualizar Dashboard</button>
             </div>
 
             <!-- Sprint Banner -->
@@ -702,37 +686,67 @@
 
     <script>
         // Embedded data
-        let sprintData = {"sprint":12,"start_date":"2025-11-18","end_date":"2025-12-01","goal":"Implementar autenticação Microsoft Entra","epic":"EPIC-001","metrics":{"total_points":21,"completed_points":8,"tasks":{"total":8,"todo":3,"in_progress":2,"done":3,"blocked":0}},"tasks":[{"id":"TASK-001","title":"Configurar Azure App Registration","agent":"DevOps Agent","status":"DONE","priority":"P0","story_points":2,"notes":"App registration criado com sucesso"},{"id":"TASK-002","title":"Criar schemas de autenticação no banco","agent":"Database Agent","status":"DONE","priority":"P0","story_points":3,"notes":"Schema criado"},{"id":"TASK-003","title":"Implementar UI de login","agent":"Vue Agent","status":"DONE","priority":"P0","story_points":3,"notes":"Componente finalizado"},{"id":"TASK-004","title":"Implementar OAuth2 flow no backend","agent":"FastAPI Agent","status":"IN_PROGRESS","priority":"P0","story_points":5,"notes":"Middleware implementado"},{"id":"TASK-005","title":"Implementar refresh token mechanism","agent":"FastAPI Agent","status":"IN_PROGRESS","priority":"P0","story_points":3,"notes":"Aguardando TASK-004"},{"id":"TASK-006","title":"Testes E2E de autenticação","agent":"QA Agent","status":"TODO","priority":"P1","story_points":3,"notes":""},{"id":"TASK-007","title":"Deploy em ambiente staging","agent":"DevOps Agent","status":"TODO","priority":"P1","story_points":2,"notes":""},{"id":"TASK-008","title":"Documentação técnica","agent":"FastAPI Agent","status":"TODO","priority":"P2","story_points":2,"notes":""}]};
+        let sprintData = null;
+        let logData = [];
 
-        let logData = [{"timestamp":"2025-11-18T10:00:00Z","action":"sprint_started","sprint":12},{"timestamp":"2025-11-18T10:00:00Z","action":"task_created","task_id":"TASK-001","title":"Configurar Azure App Registration"},{"timestamp":"2025-11-18T10:00:00Z","action":"task_created","task_id":"TASK-002","title":"Criar schemas de autenticação"},{"timestamp":"2025-11-18T10:00:00Z","action":"task_created","task_id":"TASK-003","title":"Implementar UI de login"},{"timestamp":"2025-11-18T14:30:00Z","action":"task_completed","task_id":"TASK-001","notes":"Configuração concluída"},{"timestamp":"2025-11-19T11:00:00Z","action":"task_completed","task_id":"TASK-002","notes":"Schema criado"},{"timestamp":"2025-11-19T16:00:00Z","action":"task_completed","task_id":"TASK-003","notes":"UI finalizada"},{"timestamp":"2025-11-20T09:00:00Z","action":"task_started","task_id":"TASK-004"}];
+        // Auto-load data on page load
+        async function loadData() {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const errorBanner = document.getElementById('error-banner');
+            const errorMessage = document.getElementById('error-message');
+
+            loadingIndicator.style.display = 'block';
+            errorBanner.style.display = 'none';
+
+            try {
+                // Add cache-busting timestamp
+                const timestamp = new Date().getTime();
+
+                // Fetch current-sprint.json
+                const sprintResponse = await fetch(`./current-sprint.json?t=${timestamp}`);
+                if (!sprintResponse.ok) throw new Error(`HTTP ${sprintResponse.status}: ${sprintResponse.statusText}`);
+                sprintData = await sprintResponse.json();
+
+                // Fetch task-log.jsonl (optional)
+                try {
+                    const logResponse = await fetch(`./task-log.jsonl?t=${timestamp}`);
+                    if (logResponse.ok) {
+                        const logText = await logResponse.text();
+                        logData = logText.trim().split('\n')
+                            .filter(line => line.trim())
+                            .map(line => JSON.parse(line));
+                    }
+                } catch (logError) {
+                    console.warn('Could not load task-log.jsonl:', logError);
+                    logData = [];
+                }
+
+                // Update last update time
+                document.getElementById('last-update').textContent = new Date().toLocaleString('pt-BR');
+
+                loadingIndicator.style.display = 'none';
+                renderDashboard();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                loadingIndicator.style.display = 'none';
+                errorBanner.style.display = 'block';
+                errorMessage.textContent = `Erro: ${error.message}. Verifique se os arquivos JSON existem e estão acessíveis.`;
+            }
+        }
+
+        // Refresh button handler
+        async function refreshData() {
+            await loadData();
+        }
 
         let statusChart = null;
         let velocityChart = null;
 
-        function toggleDataInput() {
-            const input = document.getElementById('data-input');
-            const chevron = document.getElementById('chevron');
-            input.classList.toggle('active');
-            chevron.textContent = input.classList.contains('active') ? '▲' : '▼';
-        }
-
-        function loadCustomData() {
-            try {
-                const sprintInput = document.getElementById('sprint-json-input').value.trim();
-                const logInput = document.getElementById('log-jsonl-input').value.trim();
-
-                if (sprintInput) sprintData = JSON.parse(sprintInput);
-                if (logInput) logData = logInput.split('\n').map(line => JSON.parse(line));
-
-                renderDashboard();
-                alert('✅ Dashboard atualizado!');
-                toggleDataInput();
-            } catch (error) {
-                alert('❌ Erro: ' + error.message);
-            }
-        }
-
         function renderDashboard() {
+            if (!sprintData) {
+                console.warn('No sprint data available yet');
+                return;
+            }
             document.getElementById('sprint-title').textContent = `Sprint ${sprintData.sprint}`;
             document.getElementById('sprint-dates').textContent = `${formatDate(sprintData.start_date)} a ${formatDate(sprintData.end_date)}`;
             document.getElementById('sprint-goal').textContent = sprintData.goal;
@@ -951,8 +965,8 @@
             return new Date(dateStr).toLocaleDateString('pt-BR');
         }
 
-        // Initial render
-        renderDashboard();
+        // Initial load - fetch data from server
+        loadData();
     </script>
 </body>
 </html>
