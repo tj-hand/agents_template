@@ -67,6 +67,26 @@ journalctl -u project-state-autopull.service -f
 cd /var/www/project-state && git pull
 ```
 
+## 🌟 Multiple Projects?
+
+This same server can host **unlimited projects**, each with its own:
+- Git repository
+- Subdomain
+- Auto-deployment
+- Project dashboard
+
+**To add more projects:**
+```bash
+# Use the project manager
+sudo bash project-manager.sh
+# Choose option 1: Add a new project
+```
+
+See [MULTI-PROJECT-GUIDE.md](./MULTI-PROJECT-GUIDE.md) for details!
+
 ---
 
-For detailed documentation, see [README.md](./README.md)
+**Documentation:**
+- [Full Deployment Guide](./README.md)
+- [Multi-Project Setup](./MULTI-PROJECT-GUIDE.md)
+- [New Project Template](./NEW-PROJECT-TEMPLATE.md)
