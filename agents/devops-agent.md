@@ -79,13 +79,13 @@ VITE_API_BASE_URL=http://localhost:8080
 **Purpose:** Test before production
 
 **Flow:**
-1. Orchestrator assigns staging deployment task
+1. Claude assigns staging deployment task
 2. SSH to staging server
 3. `git pull origin staging`
 4. Coordinate with Database Agent (migrations?)
 5. `docker-compose build && docker-compose up -d`
 6. Health check validation
-7. Report to Orchestrator for QA assignment
+7. Report to Claude for QA assignment
 
 ### Production
 
@@ -96,13 +96,13 @@ VITE_API_BASE_URL=http://localhost:8080
 - [ ] Rollback plan (git revert + alembic downgrade)
 
 **Flow:**
-1. Orchestrator assigns production deployment task
+1. Claude assigns production deployment task
 2. SSH to production server
 3. `git pull --tags && git checkout v1.x.x`
 4. Coordinate with Database Agent (migrations?)
 5. `docker-compose build && docker-compose up -d`
 6. Health check validation
-7. Monitor logs and report to Orchestrator
+7. Monitor logs and report to Claude
 
 **Rollback (if issues):**
 1. `git checkout previous-tag`
@@ -183,30 +183,30 @@ DevOps: Documents in .env.example, configures in deployment
 
 **Testing environments:**
 ```
-Orchestrator: "DevOps: deploy TASK-045 to staging"
+Claude: "DevOps: deploy TASK-045 to staging"
 DevOps: Deploys to staging, reports completion
-Orchestrator: "QA: validate TASK-045 on staging"
-QA validates → Orchestrator assigns production deployment
+Claude: "QA: validate TASK-045 on staging"
+QA validates → Claude assigns production deployment
 ```
 
 ---
 
 ## Execution Mode (CHANGE)
 ```
-Orchestrator: "DevOps Agent [EXECUTE TASK-045]: Deploy feature to staging"
+Claude: "DevOps Agent [EXECUTE TASK-045]: Deploy feature to staging"
 
 Actions:
-1. Validate TASK-045 was assigned by Orchestrator (Layer 2)
+1. Validate TASK-045 was assigned by Claude (Layer 2)
 2. Coordinate: "Database Agent [CONSULT]: migrations needed for TASK-045?"
 3. SSH to staging server
 4. Git pull feature branch
 5. Run migrations if needed
 6. docker-compose up -d --build
 7. Health checks
-8. Report completion to Orchestrator
+8. Report completion to Claude
 ```
 
-**Note:** Orchestrator manages project-state. Agent just executes and reports back.
+**Note:** Claude manages project-state. Agent just executes and reports back.
 
 ---
 

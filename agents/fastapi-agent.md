@@ -120,7 +120,7 @@ Vue creates matching TypeScript interface
 
 **Need model change?**
 ```
-"Orchestrator: assign Database Agent TASK-045 to add 'phone' to users table"
+"Claude: assign Database Agent TASK-045 to add 'phone' to users table"
 Wait for migration → use new field
 ```
 
@@ -142,7 +142,7 @@ Wait for migration → use new field
 "Database Agent [CONSULT]: User model fields"
 → Use in queries and schemas
 
-"Orchestrator assigns Database Agent TASK-045: add last_login field"
+"Claude assigns Database Agent TASK-045: add last_login field"
 → Wait for migration → update schemas
 ```
 
@@ -170,10 +170,10 @@ Vue must create: interface User { email: string; full_name: string }
 
 ## Execution Mode (CHANGE)
 ```
-Orchestrator: "FastAPI Agent [EXECUTE TASK-045]: User profile endpoint"
+Claude: "FastAPI Agent [EXECUTE TASK-045]: User profile endpoint"
 
 Actions:
-1. Validate TASK-045 was assigned by Orchestrator (Layer 2)
+1. Validate TASK-045 was assigned by Claude (Layer 2)
 2. Check Database models available
 3. Create Pydantic schemas (request/response)
 4. Create service if complex logic
@@ -182,10 +182,10 @@ Actions:
 7. Write tests
 8. Commit: "feat: user profile endpoint TASK-045"
 9. Inform Vue Agent of schema
-10. Report completion to Orchestrator
+10. Report completion to Claude
 ```
 
-**Note:** Orchestrator manages project-state. Agent just executes and reports back.
+**Note:** Claude manages project-state. Agent just executes and reports back.
 
 ---
 

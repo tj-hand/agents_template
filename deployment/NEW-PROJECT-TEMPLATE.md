@@ -233,7 +233,7 @@ my-new-project/
 │   ├── frontend/
 │   └── ...
 │
-├── Orchestrator.md         ← Agent orchestration rules
+├── Claude.md         ← Agent orchestration rules
 ├── .gitignore
 └── README.md               ← Your custom README
 ```
@@ -248,7 +248,7 @@ rm agents/fastapi-agent.md
 rm agents/database-agent.md
 ```
 
-Update `Orchestrator.md` to remove references to these agents.
+Update `Claude.md` to remove references to these agents.
 
 ### API-Only Project
 
@@ -323,7 +323,7 @@ You are the Mobile Agent specializing in React Native...
 ...
 ```
 
-Update `Orchestrator.md` to include the new agent.
+Update `Claude.md` to include the new agent.
 
 ### Dashboard Customization
 

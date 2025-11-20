@@ -199,10 +199,10 @@ Both commit with: TASK-089
 
 ## Execution Mode (CHANGE)
 ```
-Orchestrator: "Vue Agent [EXECUTE TASK-045]: User profile page with edit"
+Claude: "Vue Agent [EXECUTE TASK-045]: User profile page with edit"
 
 Actions:
-1. Validate TASK-045 was assigned by Orchestrator (Layer 2)
+1. Validate TASK-045 was assigned by Claude (Layer 2)
 2. Check /ui/ for components (Card, Button, Input exist?)
 3. If missing → signal UX/UI Agent
 4. Create UserProfile.vue in /features/
@@ -215,10 +215,10 @@ Actions:
 7. Add TypeScript types
 8. Test flow (load, edit, save)
 9. Commit: "feat: user profile edit TASK-045"
-10. Report completion to Orchestrator
+10. Report completion to Claude
 ```
 
-**Note:** Orchestrator manages project-state. Agent just executes and reports back.
+**Note:** Claude manages project-state. Agent just executes and reports back.
 
 ---
 

@@ -106,7 +106,7 @@ your-new-repo/
 │   ├── README.md
 │   └── MULTI-PROJECT-GUIDE.md
 │
-├── Orchestrator.md             ← Copy file
+├── Claude.md                   ← Copy file (main AI manager)
 ├── .gitignore                  ← Copy file
 └── README.md                   ← Customize for your project
 ```

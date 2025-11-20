@@ -41,7 +41,7 @@ git push -u origin main
 - ✅ All agents configured
 - ✅ Project-state dashboard
 - ✅ Deployment system
-- ✅ Orchestrator rules
+- ✅ Claude rules
 
 **Customize:**
 1. Edit `project-state/project.json` - Your project details
@@ -66,8 +66,8 @@ curl -o agents/database-agent.md https://raw.githubusercontent.com/tj-hand/agent
 curl -o agents/qa-agent.md https://raw.githubusercontent.com/tj-hand/agents_template/main/agents/qa-agent.md
 curl -o agents/uxui-agent.md https://raw.githubusercontent.com/tj-hand/agents_template/main/agents/uxui-agent.md
 
-# Copy Orchestrator
-curl -o Orchestrator.md https://raw.githubusercontent.com/tj-hand/agents_template/main/Orchestrator.md
+# Copy Claude
+curl -o Claude.md https://raw.githubusercontent.com/tj-hand/agents_template/main/Claude.md
 ```
 
 ---
@@ -98,7 +98,7 @@ You are the React Agent, specializing in React 18+ development...
 ...
 ```
 
-Update `Orchestrator.md`:
+Update `Claude.md`:
 ```markdown
 - **React Agent**: Frontend development (React 18+, hooks, components)
 ```
@@ -152,7 +152,7 @@ You are the Mobile Agent, specializing in cross-platform mobile development...
 ...
 ```
 
-Add to `Orchestrator.md`:
+Add to `Claude.md`:
 ```markdown
 - **Mobile Agent**: Mobile app development (React Native, iOS, Android)
 ```
@@ -209,7 +209,7 @@ QA Agent:
 
 ### Agent Coordination
 
-The **Orchestrator** ensures agents work together:
+The **Claude** ensures agents work together:
 
 1. **No Overlap** - Each agent has clear boundaries
 2. **Dependencies** - Agents wait for prerequisites
@@ -335,7 +335,7 @@ You are the [Agent Name], specializing in [technology/domain].
 - Quality metrics
 ```
 
-### Register in Orchestrator
+### Register in Claude
 
 ```markdown
 ## Agents and Responsibilities
@@ -348,7 +348,7 @@ You are the [Agent Name], specializing in [technology/domain].
 ## 💡 Best Practices
 
 1. **Keep Agents Focused** - One clear responsibility each
-2. **Update Orchestrator** - Always reflect agent changes
+2. **Update Claude** - Always reflect agent changes
 3. **Document Tech Stack** - Keep agent files current
 4. **Test Integration** - Ensure agents work together
 5. **Track in Project-State** - Use dashboard for visibility
@@ -399,7 +399,7 @@ Use the project-state dashboard to track:
 
 1. **Choose agents** for your project type
 2. **Customize tech stack** in agent files
-3. **Update Orchestrator** with your agents
+3. **Update Claude** with your agents
 4. **Start working** with Claude
 5. **Track progress** on dashboard
 
@@ -407,4 +407,4 @@ The agents will automatically coordinate and manage your project development!
 
 ---
 
-**Questions?** Check the [Orchestrator.md](../Orchestrator.md) file for coordination rules and agent interactions.
+**Questions?** Check the [Claude.md](../Claude.md) file for coordination rules and agent interactions.
