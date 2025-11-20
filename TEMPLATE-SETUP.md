@@ -26,8 +26,11 @@ This will:
 - ✅ Create project-state files for your project
 - ✅ Update the projects registry
 - ✅ Generate a customized README
+- ✅ Rename `Orchestrator.md` → `Claude.md` (personalize for your project)
 - ✅ Clean up example data
 - ✅ Initialize Git repository
+
+> **Note:** The template uses `Orchestrator.md` as the generic coordinator. When you initialize your project, it becomes `Claude.md` - your personal AI project manager.
 
 ### Step 3: Push to Your Repository
 
@@ -45,7 +48,7 @@ git push -u origin main
 When you use this template, you get:
 
 ### 🤖 AI Agents System
-- **Claude.md** - Main project manager (coordinates all agents)
+- **Orchestrator.md** - Generic coordinator (becomes **Claude.md** when initialized)
 - **6 Specialized Agents** in `/agents/` directory:
   - DevOps Agent (infrastructure, deployment)
   - FastAPI Agent (backend development)
@@ -53,6 +56,8 @@ When you use this template, you get:
   - Database Agent (schema, migrations)
   - QA Agent (testing, code review)
   - UX/UI Agent (design, user experience)
+
+> When you run `template-init.sh`, Orchestrator.md is renamed to Claude.md for your project.
 
 ### 📊 Project State Management
 - **dashboard.html** - Real-time project dashboard
@@ -109,9 +114,11 @@ See [AGENTS-IMPLEMENTATION-GUIDE.md](deployment/AGENTS-IMPLEMENTATION-GUIDE.md) 
 
 ## 📚 Understanding the Agent System
 
+> **Note:** In your initialized project, the Orchestrator becomes **Claude** - your personal AI project manager.
+
 ### How Agents Work
 
-**Claude** is the main project manager who:
+**Claude** (your AI project manager) is the main coordinator who:
 - Receives your requests
 - Analyzes requirements
 - Creates tasks in project-state

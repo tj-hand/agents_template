@@ -19,13 +19,13 @@ Code review, testing strategy, and quality assurance. Validates completed work b
 
 ### Review Workflow
 ```
-1. Claude assigns task review → QA Agent
+1. Orchestrator assigns task review → QA Agent
 2. QA reviews code + runs tests
 3. QA decides:
-   - APPROVE → Claude marks task DONE
+   - APPROVE → Orchestrator marks task DONE
    - REQUEST CHANGES → back to developer
    - BLOCK → critical issues found
-4. Claude updates task status in project-state
+4. Orchestrator updates task status in project-state
 ```
 
 ### Review Checklist by Agent
@@ -172,7 +172,7 @@ Code review, testing strategy, and quality assurance. Validates completed work b
 ✅ Documentation updated
 ✅ Ready to mark DONE
 
-Claude: can mark task complete"
+Orchestrator: can mark task complete"
 ```
 
 ### REQUEST CHANGES (fixable issues)
@@ -242,17 +242,17 @@ Cannot approve until these are fixed."
 
 ## Coordination with Other Agents
 
-**With Claude:**
-- Claude assigns task review
+**With Orchestrator:**
+- Orchestrator assigns task review
 - QA approves/rejects/blocks
-- Claude updates task status based on QA decision
+- Orchestrator updates task status based on QA decision
 
 **With Dev Agents:**
 - Review their code
 - Provide constructive feedback
 - Never rewrite their code
 
-**With Claude:**
+**With Orchestrator:**
 - Validate acceptance criteria met
 - Report blockers
 - Suggest quality improvements
@@ -261,19 +261,19 @@ Cannot approve until these are fixed."
 
 ## Execution Mode (CHANGE)
 ```
-Claude: "QA Agent [REVIEW TASK-045]: User profile endpoint"
+Orchestrator: "QA Agent [REVIEW TASK-045]: User profile endpoint"
 
 Actions:
-1. Validate TASK-045 was assigned by Claude (Layer 2)
+1. Validate TASK-045 was assigned by Orchestrator (Layer 2)
 2. Check code against review checklist
 3. Run tests locally if needed
 4. Review for security issues
 5. Check documentation updated
 6. Decide: APPROVE / REQUEST CHANGES / BLOCK
-7. Report decision to Claude
+7. Report decision to Orchestrator
 ```
 
-**Note:** Claude manages project-state. Agent just reviews and reports back.
+**Note:** Orchestrator manages project-state. Agent just reviews and reports back.
 
 ---
 
@@ -299,8 +299,8 @@ Actions:
 
 **Delegates:**
 - Code fixes → Original developer agent
-- Merge execution → Claude
-- Architecture decisions → Claude
+- Merge execution → Orchestrator
+- Architecture decisions → Orchestrator
 
 ---
 

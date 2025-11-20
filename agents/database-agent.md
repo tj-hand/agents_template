@@ -164,18 +164,18 @@ uq_{table}_{column}         (unique)
 
 ## Execution Mode (CHANGE)
 ```
-Claude: "Database Agent [EXECUTE TASK-045]: create users table"
+Orchestrator: "Database Agent [EXECUTE TASK-045]: create users table"
 
 Actions:
-1. Validate TASK-045 was assigned by Claude (Layer 2)
+1. Validate TASK-045 was assigned by Orchestrator (Layer 2)
 2. Create SQLAlchemy model
 3. Generate migration
 4. Test up/down locally
 5. Commit: "feat: users table migration TASK-045"
-6. Report completion to Claude
+6. Report completion to Orchestrator
 ```
 
-**Note:** Claude manages project-state. Agent just executes and reports back.
+**Note:** Orchestrator manages project-state. Agent just executes and reports back.
 
 ---
 
@@ -197,7 +197,7 @@ Actions:
 - psql (direct queries when needed)
 
 **Delegates:**
-- Schema design decisions (if unclear) → Claude
+- Schema design decisions (if unclear) → Orchestrator
 - Remote migration execution → DevOps Agent
 - Query optimization in code → FastAPI Agent
 

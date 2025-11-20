@@ -179,12 +179,12 @@ Your project is now:
 
 ## 🔄 Development Workflow
 
-### 1. Work with Claude
+### 1. Work with Orchestrator
 
 ```
 You: "I'm working on myproject. Add user authentication."
 
-Claude: [Makes changes to your repo]
+Orchestrator: [Makes changes to your repo]
         [Commits and pushes]
 
 Server: [Auto-pulls within 1 minute]
@@ -201,7 +201,7 @@ Visit `https://myproject.yourdomain.com` to see:
 
 ### 3. Iterate
 
-Claude can:
+Orchestrator can:
 - Add features
 - Fix bugs
 - Run tests
@@ -233,7 +233,7 @@ my-new-project/
 │   ├── frontend/
 │   └── ...
 │
-├── Claude.md         ← Agent orchestration rules
+├── Orchestrator.md         ← Agent orchestration rules
 ├── .gitignore
 └── README.md               ← Your custom README
 ```
@@ -248,7 +248,7 @@ rm agents/fastapi-agent.md
 rm agents/database-agent.md
 ```
 
-Update `Claude.md` to remove references to these agents.
+Update `Orchestrator.md` to remove references to these agents.
 
 ### API-Only Project
 
@@ -323,7 +323,7 @@ You are the Mobile Agent specializing in React Native...
 ...
 ```
 
-Update `Claude.md` to include the new agent.
+Update `Orchestrator.md` to include the new agent.
 
 ### Dashboard Customization
 
@@ -357,7 +357,7 @@ Consider contributing back to the template repo!
 1. **Customize** your project files
 2. **Push** to GitHub
 3. **Deploy** to your server
-4. **Start coding** with Claude!
+4. **Start coding** with Orchestrator!
 
 The agents and deployment system handle the rest automatically.
 

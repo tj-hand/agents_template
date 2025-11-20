@@ -256,15 +256,17 @@ else
 fi
 
 echo ""
-echo -e "${GREEN}[5/6] Cleaning up...${NC}"
+echo -e "${GREEN}[5/6] Personalizing project files...${NC}"
 
-# Remove old Orchestrator.md if it still exists (shouldn't, but just in case)
+# Rename Orchestrator.md to Claude.md (personalize for the project)
 if [ -f "Orchestrator.md" ]; then
-    rm Orchestrator.md
-    echo -e "${GREEN}✓ Old Orchestrator.md removed${NC}"
+    mv Orchestrator.md Claude.md
+    echo -e "${GREEN}✓ Orchestrator.md renamed to Claude.md${NC}"
+else
+    echo -e "${YELLOW}⚠ Orchestrator.md not found${NC}"
 fi
 
-echo -e "${GREEN}✓ Cleanup complete${NC}"
+echo -e "${GREEN}✓ Personalization complete${NC}"
 
 echo ""
 echo -e "${GREEN}[6/6] Initializing Git repository...${NC}"

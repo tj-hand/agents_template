@@ -32,7 +32,7 @@ Perfect for:
 - **Database Agent** - Schema design, migrations
 - **QA Agent** - Testing and code review
 - **UX/UI Agent** - Design and user experience
-- **Claude** - Main project manager coordinating all agents
+- **Orchestrator** - Coordinates all agents (becomes "Claude" in your project)
 
 ### 📊 Multi-Project Dashboard
 - **Project Selector** - Switch between projects instantly
@@ -67,6 +67,7 @@ The init script will:
 - ✅ Set up project structure for your project
 - ✅ Create customized project-state files
 - ✅ Generate README with your project name
+- ✅ Rename Orchestrator → Claude (personalize for your project)
 - ✅ Clean up example data
 - ✅ Initialize Git repository
 
@@ -145,7 +146,7 @@ agents_template/
 │   ├── scripts/
 │   └── README.md
 │
-├── Claude.md                    # Main AI Project Manager
+├── Orchestrator.md              # Agent Coordinator (→ Claude.md when initialized)
 ├── template-init.sh             # Template initialization script
 ├── TEMPLATE-SETUP.md            # Template usage guide
 ├── .gitignore                   # Security (keys protected)
@@ -158,10 +159,12 @@ agents_template/
 
 ### Development Workflow
 
+> Once initialized, Orchestrator becomes **Claude** - your AI project manager.
+
 ```
 You: "Add user authentication to my project"
          ↓
-Claude analyzes request
+Claude/Orchestrator analyzes request
          ↓
 Creates tasks in project-state
          ↓
@@ -218,7 +221,7 @@ Switch projects instantly
 
 ### Agent System
 - **[Agents Implementation](deployment/AGENTS-IMPLEMENTATION-GUIDE.md)** - Use agents in your projects
-- **[Claude - Main Manager](Claude.md)** - Main AI project manager and coordination rules
+- **[Orchestrator](Orchestrator.md)** - Agent coordination rules (becomes Claude in your project)
 - **[Individual Agents](agents/)** - Detailed agent specs
 
 ### Project Tracking
@@ -329,7 +332,7 @@ Server 3: Client-specific
 ## 💡 Key Concepts
 
 ### AI Agents
-Specialized assistants that handle specific aspects of development. Each agent knows its domain deeply and coordinates with others through Claude (the main project manager).
+Specialized assistants that handle specific aspects of development. Each agent knows its domain deeply and coordinates with others through the Orchestrator (which becomes Claude when you initialize your project).
 
 ### Project State
 JSON-based task tracking system that serves as the single source of truth for project status, sprint progress, and task history.

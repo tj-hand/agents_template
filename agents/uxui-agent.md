@@ -231,19 +231,19 @@ VITE_BRAND_FONT
 
 ## Execution Mode (CHANGE)
 ```
-Claude: "UX/UI Agent [EXECUTE TASK-045]: Create login page layout"
+Orchestrator: "UX/UI Agent [EXECUTE TASK-045]: Create login page layout"
 
 Actions:
-1. Validate TASK-045 was assigned by Claude (Layer 2)
+1. Validate TASK-045 was assigned by Orchestrator (Layer 2)
 2. Check /ui/ for existing components
 3. Create LoginLayout.vue (structure, ARIA, slots)
 4. Test responsive + accessibility
 5. Commit: "feat(ui): login layout TASK-045"
 6. Signal Vue Agent if coordination needed
-7. Report completion to Claude
+7. Report completion to Orchestrator
 ```
 
-**Note:** Claude manages project-state. Agent just executes and reports back.
+**Note:** Orchestrator manages project-state. Agent just executes and reports back.
 
 ---
 
