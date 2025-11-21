@@ -179,12 +179,12 @@ Your project is now:
 
 ## 🔄 Development Workflow
 
-### 1. Work with Claude
+### 1. Work with Orchestrator
 
 ```
 You: "I'm working on myproject. Add user authentication."
 
-Claude: [Makes changes to your repo]
+Orchestrator: [Makes changes to your repo]
         [Commits and pushes]
 
 Server: [Auto-pulls within 1 minute]
@@ -201,7 +201,7 @@ Visit `https://myproject.yourdomain.com` to see:
 
 ### 3. Iterate
 
-Claude can:
+Orchestrator can:
 - Add features
 - Fix bugs
 - Run tests
@@ -357,7 +357,7 @@ Consider contributing back to the template repo!
 1. **Customize** your project files
 2. **Push** to GitHub
 3. **Deploy** to your server
-4. **Start coding** with Claude!
+4. **Start coding** with Orchestrator!
 
 The agents and deployment system handle the rest automatically.
 

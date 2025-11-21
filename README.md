@@ -32,7 +32,7 @@ Perfect for:
 - **Database Agent** - Schema design, migrations
 - **QA Agent** - Testing and code review
 - **UX/UI Agent** - Design and user experience
-- **Orchestrator** - Coordinates all agents
+- **Orchestrator** - Coordinates all agents (becomes "Claude" in your project)
 
 ### 📊 Multi-Project Dashboard
 - **Project Selector** - Switch between projects instantly
@@ -51,6 +51,30 @@ Perfect for:
 
 ---
 
+---
+
+## 🎯 USE THIS AS A TEMPLATE
+
+### One-Command Setup
+
+```bash
+git clone https://github.com/tj-hand/agents_template.git my-project
+cd my-project
+./template-init.sh
+```
+
+The init script will:
+- ✅ Set up project structure for your project
+- ✅ Create customized project-state files
+- ✅ Generate README with your project name
+- ✅ Rename Orchestrator → Claude (personalize for your project)
+- ✅ Clean up example data
+- ✅ Initialize Git repository
+
+**See [TEMPLATE-SETUP.md](TEMPLATE-SETUP.md) for detailed template usage guide.**
+
+---
+
 ## 🚀 Quick Start (3 Steps)
 
 ### 1. Clone This Template
@@ -60,15 +84,13 @@ git clone https://github.com/tj-hand/agents_template.git my-project
 cd my-project
 ```
 
-### 2. Customize for Your Project
+### 2. Initialize Your Project
 
 ```bash
-# Edit project details
-nano project-state/project.json
-
-# Update sprint data
-nano project-state/projects/agents-template/current-sprint.json
+./template-init.sh
 ```
+
+Follow the prompts to set up your project name and details.
 
 ### 3. Deploy to Server
 
@@ -124,7 +146,9 @@ agents_template/
 │   ├── scripts/
 │   └── README.md
 │
-├── Orchestrator.md              # Agent Coordinator
+├── Orchestrator.md              # Agent Coordinator (→ Claude.md when initialized)
+├── template-init.sh             # Template initialization script
+├── TEMPLATE-SETUP.md            # Template usage guide
 ├── .gitignore                   # Security (keys protected)
 └── README.md                    # This file
 ```
@@ -135,10 +159,12 @@ agents_template/
 
 ### Development Workflow
 
+> Once initialized, Orchestrator becomes **Claude** - your AI project manager.
+
 ```
 You: "Add user authentication to my project"
          ↓
-Orchestrator analyzes request
+Claude/Orchestrator analyzes request
          ↓
 Creates tasks in project-state
          ↓
@@ -155,7 +181,7 @@ Commit changes with TASK-XXX
          ↓
 Push to git
          ↓
-Server auto-pulls (1 minute)
+Server auto-pulls (5 minutes or instant via webhook)
          ↓
 Dashboard updates automatically
 ```
@@ -184,6 +210,7 @@ Switch projects instantly
 ## 📚 Documentation
 
 ### Getting Started
+- **[Template Setup Guide](TEMPLATE-SETUP.md)** - Complete guide to using this template
 - **[Quick Start](deployment/QUICKSTART.md)** - Deploy in 3 steps
 - **[Architecture](deployment/ARCHITECTURE.md)** - System design and data flow
 
@@ -194,7 +221,7 @@ Switch projects instantly
 
 ### Agent System
 - **[Agents Implementation](deployment/AGENTS-IMPLEMENTATION-GUIDE.md)** - Use agents in your projects
-- **[Orchestrator](Orchestrator.md)** - Agent coordination rules
+- **[Orchestrator](Orchestrator.md)** - Agent coordination rules (becomes Claude in your project)
 - **[Individual Agents](agents/)** - Detailed agent specs
 
 ### Project Tracking
@@ -305,7 +332,7 @@ Server 3: Client-specific
 ## 💡 Key Concepts
 
 ### AI Agents
-Specialized assistants that handle specific aspects of development. Each agent knows its domain deeply and coordinates with others through the Orchestrator.
+Specialized assistants that handle specific aspects of development. Each agent knows its domain deeply and coordinates with others through the Orchestrator (which becomes Claude when you initialize your project).
 
 ### Project State
 JSON-based task tracking system that serves as the single source of truth for project status, sprint progress, and task history.

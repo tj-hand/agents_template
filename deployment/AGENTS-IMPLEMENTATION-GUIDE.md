@@ -174,14 +174,14 @@ agents/
 
 ## 🔄 How to Work with Agents
 
-### Working with Claude
+### Working with Orchestrator
 
-When you work with Claude on your project:
+When you work with Orchestrator on your project:
 
 ```
 You: "I need to add user authentication to my app"
 
-Claude (Project Manager):
+Orchestrator (Project Manager):
 - Analyzes the request
 - Delegates to appropriate agents
 - Coordinates the work
@@ -400,7 +400,7 @@ Use the project-state dashboard to track:
 1. **Choose agents** for your project type
 2. **Customize tech stack** in agent files
 3. **Update Orchestrator** with your agents
-4. **Start working** with Claude
+4. **Start working** with Orchestrator
 5. **Track progress** on dashboard
 
 The agents will automatically coordinate and manage your project development!
