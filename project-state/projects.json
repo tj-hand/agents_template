@@ -7,6 +7,14 @@
       "color": "#3b82f6",
       "repository": "https://github.com/tj-hand/agents_template.git",
       "branch": "main"
+    },
+    {
+      "id": "nginx-api-gateway",
+      "name": "Nginx API Gateway",
+      "description": "API Gateway for microservices",
+      "color": "#10b981",
+      "repository": "https://github.com/tj-hand/nginx_api_gateway_b.git",
+      "branch": "main"
     }
   ],
   "default": "agents-template"
