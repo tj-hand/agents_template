@@ -9,6 +9,31 @@ This guide shows you how to use your Ubuntu server as a **platform for multiple 
 - ✅ Automated deployments
 - ✅ The same agents system
 
+## 📚 Quick Links
+
+- **[Complete Step-by-Step Setup Guide](./NEW-PROJECT-SETUP.md)** ← Start here for new projects
+- [Webhook Integration](./WEBHOOK-GUIDE.md) - For instant updates
+- [Server Setup](./SERVER-SETUP-GUIDE.md) - Initial server configuration
+- [Architecture Overview](./ARCHITECTURE.md) - System design
+
+## ⚠️ CRITICAL: Naming Conventions
+
+**MUST READ** before adding projects:
+
+| Item | Rules | ✅ Good Examples | ❌ Bad Examples |
+|------|-------|------------------|-----------------|
+| **Project Name** | • Lowercase only<br>• Hyphens (not underscores)<br>• No spaces<br>• Alphanumeric + hyphens | `my-project`<br>`api-gateway`<br>`user-portal` | `My Project` ← spaces<br>`my_project` ← underscores<br>`Project 1` ← capital, space |
+| **Subdomain** | • Must be unique<br>• Lowercase<br>• Valid DNS name | `myapp.domain.com`<br>`api.domain.com`<br>`staging-app.domain.com` | `my app.domain.com` ← space<br>`scrum.dotmkt.com.br` ← already used |
+| **Project ID** | • Same as project name<br>• Used in paths and configs | `my-project` | Different from project name |
+
+**Why this matters:**
+- Spaces break nginx configuration
+- Uppercase causes DNS/SSL issues
+- Duplicate subdomains cause conflicts
+- Invalid names prevent deployment
+
+**The script now validates** these rules automatically!
+
 ## 🏗️ Architecture
 
 ```
@@ -131,11 +156,28 @@ git push -u origin main
 
 ### Customize for Your Project
 
-1. **Update `project-state/project.json`** with your project details
-2. **Clear `project-state/current-sprint.json`** (or start with your sprint)
-3. **Clear `project-state/task-log.jsonl`** (start fresh)
-4. **Update `README.md`** with your project description
-5. **Customize agents/** if you need different agents
+1. **Update `project-state/projects.json`** with your repository details:
+   ```json
+   {
+     "projects": [
+       {
+         "id": "my-new-project",
+         "name": "My New Project",
+         "description": "Description of your project",
+         "color": "#3b82f6",
+         "repository": "https://github.com/yourname/my-new-project.git",
+         "branch": "main"
+       }
+     ],
+     "default": "my-new-project"
+   }
+   ```
+
+2. **Update `project-state/project.json`** with your project details
+3. **Clear `project-state/current-sprint.json`** (or start with your sprint)
+4. **Clear `project-state/task-log.jsonl`** (start fresh)
+5. **Update `README.md`** with your project description
+6. **Customize agents/** if you need different agents
 
 ## 🎛️ Managing Multiple Projects
 

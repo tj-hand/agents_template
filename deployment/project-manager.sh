@@ -36,7 +36,32 @@ case $OPTION in
         echo -e "${BLUE}=== Add New Project ===${NC}"
         echo ""
 
-        read -p "Project name (e.g., 'alpha', 'myapp'): " PROJECT_NAME
+        # Validate project name
+        while true; do
+            read -p "Project name (lowercase, hyphens only, e.g., 'my-project'): " PROJECT_NAME
+
+            # Check if name matches pattern: lowercase, numbers, hyphens only
+            if [[ ! "$PROJECT_NAME" =~ ^[a-z0-9-]+$ ]]; then
+                echo -e "${RED}✗ Invalid project name!${NC}"
+                echo "  Rules: lowercase letters, numbers, and hyphens only"
+                echo "  Good: my-project, api-gateway, webapp"
+                echo "  Bad: My Project, my_project, project 1"
+                echo ""
+                continue
+            fi
+
+            # Check if name contains spaces
+            if [[ "$PROJECT_NAME" =~ [[:space:]] ]]; then
+                echo -e "${RED}✗ Project name cannot contain spaces!${NC}"
+                echo "  Use hyphens instead: 'my-project' not 'My Project'"
+                echo ""
+                continue
+            fi
+
+            # Valid name
+            break
+        done
+
         read -p "Subdomain (e.g., '$PROJECT_NAME.yourdomain.com'): " SUBDOMAIN
         read -p "Git repository URL: " REPO_URL
         read -p "Git branch [main]: " GIT_BRANCH
@@ -86,7 +111,7 @@ server {
     listen [::]:80;
     server_name $SUBDOMAIN;
 
-    root $INSTALL_PATH/project-state;
+    root "$INSTALL_PATH/project-state";
     index dashboard.html;
 
     # Enable gzip compression
