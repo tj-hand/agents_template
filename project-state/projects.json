@@ -4,7 +4,9 @@
       "id": "agents-template",
       "name": "Agents Template",
       "description": "Multi-agent development template project",
-      "color": "#3b82f6"
+      "color": "#3b82f6",
+      "repository": "https://github.com/tj-hand/agents_template.git",
+      "branch": "main"
     }
   ],
   "default": "agents-template"
