@@ -1,0 +1,155 @@
+name: Sync Multi-Repo Projects
+
+on:
+  # Run every 15 minutes
+  schedule:
+    - cron: '*/15 * * * *'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+  # Run when projects.json is updated
+  push:
+    paths:
+      - 'project-state/projects.json'
+
+jobs:
+  sync-projects:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout agents_template
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git and Dependencies
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Install jq if not present
+          if ! command -v jq &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+
+      - name: Read projects.json
+        id: read-projects
+        run: |
+          echo "Reading projects.json..."
+          cat project-state/projects.json
+
+      - name: Sync external projects
+        run: |
+          #!/bin/bash
+          set -e
+
+          echo "=== Multi-Repo Project Sync ==="
+
+          # Read projects.json
+          PROJECTS=$(cat project-state/projects.json | jq -r '.projects[] | @base64')
+
+          CHANGES_MADE=false
+
+          for project in $PROJECTS; do
+              # Decode project data
+              PROJECT_ID=$(echo "$project" | base64 -d | jq -r '.id')
+              PROJECT_REPO=$(echo "$project" | base64 -d | jq -r '.repository // empty')
+              PROJECT_BRANCH=$(echo "$project" | base64 -d | jq -r '.branch // "main"')
+
+              echo ""
+              echo "Processing: $PROJECT_ID"
+
+              # Skip if no repository URL (local project)
+              if [ -z "$PROJECT_REPO" ] || [ "$PROJECT_REPO" = "null" ]; then
+                  echo "  ↳ No repository URL, skipping..."
+                  continue
+              fi
+
+              # Skip if it's the agents_template repo itself
+              if [[ "$PROJECT_REPO" == *"agents_template"* ]]; then
+                  echo "  ↳ Self-reference, skipping..."
+                  continue
+              fi
+
+              echo "  ↳ Repository: $PROJECT_REPO"
+              echo "  ↳ Branch: $PROJECT_BRANCH"
+
+              # Create temp directory for external repo
+              TEMP_DIR="/tmp/sync-$PROJECT_ID"
+              rm -rf "$TEMP_DIR"
+
+              # Clone external repository
+              echo "  ↳ Cloning..."
+              if ! git clone --depth 1 --branch "$PROJECT_BRANCH" "$PROJECT_REPO" "$TEMP_DIR" 2>/dev/null; then
+                  echo "  ✗ Failed to clone, skipping..."
+                  continue
+              fi
+
+              # Check if external repo has project-state directory
+              if [ ! -d "$TEMP_DIR/project-state" ]; then
+                  echo "  ✗ No project-state directory found, skipping..."
+                  rm -rf "$TEMP_DIR"
+                  continue
+              fi
+
+              # Create project directory in agents_template if it doesn't exist
+              PROJECT_DIR="project-state/projects/$PROJECT_ID"
+              mkdir -p "$PROJECT_DIR"
+
+              # Sync project-state files
+              echo "  ↳ Syncing project-state files..."
+
+              # Copy essential files
+              for file in current-sprint.json project.json task-log.jsonl; do
+                  if [ -f "$TEMP_DIR/project-state/$file" ]; then
+                      # Check if file has changed
+                      if ! diff -q "$TEMP_DIR/project-state/$file" "$PROJECT_DIR/$file" > /dev/null 2>&1; then
+                          cp "$TEMP_DIR/project-state/$file" "$PROJECT_DIR/$file"
+                          echo "     ✓ Updated $file"
+                          CHANGES_MADE=true
+                      else
+                          echo "     - $file (no changes)"
+                      fi
+                  fi
+              done
+
+              # Cleanup
+              rm -rf "$TEMP_DIR"
+
+              echo "  ✓ Sync complete"
+          done
+
+          # Check if any changes were made
+          if [ "$CHANGES_MADE" = true ]; then
+              echo ""
+              echo "=== Changes detected, committing ==="
+              echo "CHANGES_MADE=true" >> $GITHUB_ENV
+          else
+              echo ""
+              echo "=== No changes detected ==="
+              echo "CHANGES_MADE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Commit and push changes
+        if: env.CHANGES_MADE == 'true'
+        run: |
+          git add project-state/projects/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: auto-sync project data from external repositories
+
+          Synchronized project-state files from external repos listed in projects.json.
+          This is an automated commit from GitHub Actions."
+
+          git push
+
+      - name: Trigger webhook (optional)
+        if: env.CHANGES_MADE == 'true' && secrets.WEBHOOK_URL != ''
+        run: |
+          curl -X POST "${{ secrets.WEBHOOK_URL }}?secret=${{ secrets.WEBHOOK_SECRET }}" || true
